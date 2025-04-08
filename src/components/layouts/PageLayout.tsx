@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import Banner from "./Banner";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
+import Header from "./Header";
 
 
 export default function PageLayout() {
@@ -23,6 +24,7 @@ export default function PageLayout() {
   return (
     <div dir={local === "ar" ? "rtl" : "ltr"}>
       <Banner changeLanguage={changeLanguage} local={local} />
+      <Header />
       <Outlet />
     </div>
   );
