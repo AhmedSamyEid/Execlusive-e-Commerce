@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
 import Header from "./Header";
+import Footer from "./Footer";
 
 
 export default function PageLayout() {
@@ -25,6 +26,7 @@ export default function PageLayout() {
     <div dir={local === "ar" ? "rtl" : "ltr"}>
       <Banner changeLanguage={changeLanguage} local={local} />
       <Header />
+      <Footer />
       <Outlet />
     </div>
   );
