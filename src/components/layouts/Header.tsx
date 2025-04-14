@@ -13,6 +13,7 @@ export default function Header() {
     { name: "Contact", path: "/contact" },
     { name: "About", path: "/about" },
     { name: "Sign Up", path: "/signup" },
+    { name: "Login", path: "/login" },
   ];
 
   return (

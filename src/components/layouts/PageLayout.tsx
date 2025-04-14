@@ -6,6 +6,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 
+
 export default function PageLayout() {
     const {i18n } = useTranslation();
   const [local , setLocal] =useState (localStorage.getItem("i18nextLng") || "en"); 
@@ -26,8 +27,9 @@ export default function PageLayout() {
     <div dir={local === "ar" ? "rtl" : "ltr"}>
       <Banner changeLanguage={changeLanguage} local={local} />
       <Header />
+        <Outlet />
       <Footer />
-      <Outlet />
+    
     </div>
   );
 }
