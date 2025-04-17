@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import Home from "./components/pages/Cart";
+import Home from "./components/pages/Home";
 import PageLayout from "./components/layouts/PageLayout";
 import Singup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
