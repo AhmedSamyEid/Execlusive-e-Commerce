@@ -3,11 +3,11 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export default function FlashSales() {
   const Flash = [
-    { id: 1, src: "/images/PlayStation_arm.png", alt : "PlayStation_arm", title: "Gamepad", price: 120, oldPrice: 160, discount: 40, rating: 4.5, reviews: 88 },
-    { id: 2, src: "/images/PlayStation_arm_2.png",alt : "PlayStation_arm_2", title: "Keyboard", price: 960, oldPrice: 1160, discount: 35, rating: 4.0, reviews: 75 },
-    { id: 3, src: "/images/keyboard.png", alt : "keyboard", title: "Monitor", price: 370, oldPrice: 400, discount: 30, rating: 4.6, reviews: 99 },
-    { id: 4, src: "/images/screen.png", alt : "screen",  title: "Chair", price: 375, oldPrice: 400, discount: 25, rating: 4.3, reviews: 82 },
-    { id: 5, src: "/images/chair.png",alt : "chair" , title: "Chair", price: 375, oldPrice: 400, discount: 25, rating: 4.2, reviews: 78 },
+    { id: 1, src: "/images/PlayStation_arm.png", alt : "PlayStation_arm", title: "HAVIT HV-G92 Gamepad", price: 120, oldPrice: 160, discount: 40, rating: 4.5, reviews: 88 },
+    { id: 2, src: "/images/PlayStation_arm_2.png",alt : "Geams", title: "Geams", price: 960, oldPrice: 1160, discount: 35, rating: 4.0, reviews: 75 },
+    { id: 3, src: "/images/keyboard.png", alt : "AK-900 Wired Keyboard", title: "AK-900 Wired Keyboard", price: 370, oldPrice: 400, discount: 30, rating: 4.6, reviews: 99 },
+    { id: 4, src: "/images/screen.png", alt : "screen",  title: "IPS LCD Gaming Monitor", price: 375, oldPrice: 400, discount: 25, rating: 4.3, reviews: 82 },
+    { id: 5, src: "/images/chair.png",alt : "chair" , title: "S-Series Comfort Chair ", price: 375, oldPrice: 400, discount: 25, rating: 4.2, reviews: 78 },
   ];
 
   const [startIndex, setStartIndex] = useState(0);
