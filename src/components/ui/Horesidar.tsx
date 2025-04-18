@@ -5,8 +5,8 @@ const sidbasrs = [
 {src : "/images/slider.png", alt : "slider"},
 {src : "/images/AppStore.png", alt : "slider"},
 {src : "/images/attractive-woman-wearing-hat-posing-black-background.png", alt : "slider"},
-{src : "/images/bag .png", alt : "slider"},
-{src : "/images/slider.png", alt : "slider"},
+{src : "/images/camera.png", alt : "slider"},
+
   
 ];
 

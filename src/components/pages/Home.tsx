@@ -1,5 +1,6 @@
 import Horesider from "../ui/Horesidar";
 import Sidbar from "../ui/Sidbar";
+import Flashsales from "../ui/Flashsales"
 export default function Home() {
   return (
     <div className="">
@@ -7,6 +8,10 @@ export default function Home() {
       <Sidbar />
       <Horesider />
     </div>
+    <div className="m-auto">
+        <Flashsales />
+    </div>
+    
     
     </div>
   );
