@@ -39,7 +39,7 @@ export default function FlashSales() {
         </div>
       </div>
 
-      <div className="flex justify-center flex-wrap space-x-4 overflow-hidden ">
+      <div className="flex justify-center gap-4 flex-wrap space-x-4 overflow-hidden ">
         {Flash.slice(startIndex, startIndex + visibleCount).map((item) => (
           <div key={item.id} className="border bg-yellow-50 p-4 rounded-md w-[230px] relative">
             <span className="absolute top-2 left-2  bg-red-500 text-white px-2 text-xs rounded">

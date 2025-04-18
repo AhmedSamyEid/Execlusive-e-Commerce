@@ -1,7 +1,8 @@
 import Sidbar from "../ui/Sidbar";
-import Flashsales from "../ui/Flashsales"
 import Horesider from "../ui/Horesidar";
+import Flashsales from "../ui/Flashsales"
 import BrowseByCategory from "../ui/BrowseByCategory"
+import BestSellingProducts from "../ui/BestSellingProducts"
 export default function Home() {
   return (
     <div className="">
@@ -15,7 +16,9 @@ export default function Home() {
     <div>
       <BrowseByCategory />
     </div>
-    
+    <div>
+      <BestSellingProducts />
+    </div>
     </div>
   );
 }
