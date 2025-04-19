@@ -3,6 +3,7 @@ import Horesider from "../ui/Horesidar";
 import Flashsales from "../ui/Flashsales"
 import BrowseByCategory from "../ui/BrowseByCategory"
 import BestSellingProducts from "../ui/BestSellingProducts"
+import ExploreOurProducts from "../ui/ExploreOurProducts"
 export default function Home() {
   return (
     <div className="">
@@ -18,6 +19,9 @@ export default function Home() {
     </div>
     <div>
       <BestSellingProducts />
+    </div>
+    <div>
+      <ExploreOurProducts />
     </div>
     </div>
   );
