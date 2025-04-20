@@ -4,6 +4,7 @@ import Flashsales from "../ui/Flashsales"
 import BrowseByCategory from "../ui/BrowseByCategory"
 import BestSellingProducts from "../ui/BestSellingProducts"
 import ExploreOurProducts from "../ui/ExploreOurProducts"
+import NewArrival from "../ui/NewArrival"
 export default function Home() {
   return (
     <div className="">
@@ -22,6 +23,9 @@ export default function Home() {
     </div>
     <div>
       <ExploreOurProducts />
+    </div>
+    <div>
+      <NewArrival />
     </div>
     </div>
   );
