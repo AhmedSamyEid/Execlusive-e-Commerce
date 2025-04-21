@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 interface User {
   firstName?: string;
@@ -15,9 +16,9 @@ interface User {
 
 export default function Signup() {
   const { t } = useTranslation();
-
-  const [user, setUser] = useState<User[]>(
-    JSON.parse(localStorage.getItem("User") || "[]")
+const navigate =useNavigate();
+  const [Users, setUser] = useState<User[]>(
+    JSON.parse(localStorage.getItem("Users") || "[]")
   );
 
   const [formInputs, setFormInputs] = useState<User>({
@@ -33,9 +34,10 @@ export default function Signup() {
   });
 
   function signup() {
-    const newUsers = [...user, formInputs];
-    setUser(newUsers);
-    localStorage.setItem("User", JSON.stringify(newUsers));
+  
+    setUser([...Users , formInputs]);
+    localStorage.setItem("Users", JSON.stringify([...Users, formInputs]));
+  
 
     setFormInputs({
       ...formInputs,
@@ -44,11 +46,14 @@ export default function Signup() {
       password: "",
     });
   }
+  
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     signup();
+    navigate("/login")
   }
+  
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-white">
@@ -63,8 +68,8 @@ export default function Signup() {
         </div>
 
         <div className="p-8 w-full">
-          <h2 className="text-2xl font-bold mb-2">Create an account</h2>
-          <p className="text-sm text-gray-600 mb-6">Enter your details below</p>
+          <h2 className="text-2xl font-bold mb-2">{t("Create an account")}</h2>
+          <p className="text-sm text-gray-600 mb-6">{t("Enter your details below")}</p>
   
           <form className="space-y-4" onSubmit={handleSubmit}>
             <input 
@@ -78,14 +83,14 @@ export default function Signup() {
               value={formInputs.emilorphone}
               onChange={(e)=> setFormInputs({...formInputs, emilorphone: e.target.value})}
               type="text"
-              placeholder="Email or Phone Number"
+              placeholder={t("Email or Phone Number")}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <input
               value={formInputs.password}
               onChange={(e)=> setFormInputs({...formInputs, password: e.target.value})}
               type="password"
-              placeholder="Password"
+              placeholder={t("Password")}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
   
@@ -93,7 +98,7 @@ export default function Signup() {
               type="submit"
               className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
             >
-              Create Account
+              {t("Create Account")}
             </button>
   
             <div className="flex items-center justify-center gap-2 border border-gray-300 py-2 rounded cursor-pointer hover:bg-gray-100 transition">
@@ -102,14 +107,14 @@ export default function Signup() {
                 alt="Google Icon"
                 className="w-5 h-5"
               />
-              <span className="text-sm text-gray-700">Sign up with Google</span>
+              <span className="text-sm text-gray-700">{t("Sign up with Google")}</span>
             </div>
           </form>
   
           <div className="text-center mt-6 text-sm text-gray-600">
-            Already have account?{' '}
-            <a href="#" className="text-black font-medium hover:underline">
-              Log in
+          {t("Already have account?")}{' '}
+            <a href="/login" className=" text-black font-medium hover:underline">
+              {t("Log in")}
             </a>
           </div>
         </div>

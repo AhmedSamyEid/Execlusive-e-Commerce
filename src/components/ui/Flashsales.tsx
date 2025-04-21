@@ -80,7 +80,7 @@ export default function FlashSales() {
   return (
     <div className="p-8 mt-30 ">
       <div className="flex  justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">{t("Flash Sales")}</h2>
+        <h2 className="text-4xl ">{t("Flash Sales")}</h2>
         <div className="space-x-2">
           <button
             onClick={prevSlide}

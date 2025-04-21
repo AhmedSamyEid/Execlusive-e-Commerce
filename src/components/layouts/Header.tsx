@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router";
-import { FaBars, FaTimes, FaSearch, FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { Link, NavLink, useNavigate } from "react-router";
+import { FaBars, FaTimes, FaSearch, FaHeart, FaShoppingCart, FaUser   } from "react-icons/fa";
+
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,12 +16,17 @@ export default function Header() {
     { name: "Sign Up", path: "/signup" },
     { name: "Login", path: "/login" },
   ];
+  const navigate = useNavigate();
 
+  function handleLogout() {
+    localStorage.removeItem("LoggedInUser"); 
+    navigate("/login"); 
+  }
   return (
     <header className="border-b border-gray-200 bg-white shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <Link className="font-bold text-2xl" to="/">
-          Exclusive
+        {t("Exclusive")}
         </Link>
 
         <ul className="hidden lg:flex items-center gap-6">
@@ -68,7 +74,7 @@ export default function Header() {
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Order</li>
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Cancellations</li>
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">My Reviews</li>
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Logout</li>
+                  <li onClick={handleLogout} className="px-4 py-2 hover:bg-gray-100 cursor-pointer"> Logout</li>
                 </ul>
               </div>
             )}
