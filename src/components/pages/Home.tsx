@@ -5,6 +5,7 @@ import BrowseByCategory from "../ui/BrowseByCategory"
 import BestSellingProducts from "../ui/BestSellingProducts"
 import ExploreOurProducts from "../ui/ExploreOurProducts"
 import NewArrival from "../ui/NewArrival"
+
 export default function Home() {
   return (
     <div className="">

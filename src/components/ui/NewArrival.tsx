@@ -57,18 +57,18 @@ export default function NewArrival() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mt-12">
         <div>
           <img src="/icons/Vector7.png" alt="Free Delivery" className="mx-auto my-4  bg-black" />
-          <h4 className="font-semibold">FREE AND FAST DELIVERY</h4>
-          <p className="text-sm">Free delivery for all orders over $140</p>
+          <h4 className="font-semibold">{t("FREE AND FAST DELIVERY")}</h4>
+          <p className="text-sm">{t("Free delivery for all orders over $140")}</p>
         </div>
         <div>
           <img src="/icons/Icon-Customer service.png" alt="24/7 Support" className="mx-auto mb-3  bg-black" />
-          <h4 className="font-semibold">24/7 CUSTOMER SERVICE</h4>
-          <p className="text-sm">Friendly 24/7 customer support</p>
+          <h4 className="font-semibold">{t("24/7 CUSTOMER SERVICE")}</h4>
+          <p className="text-sm">{t("Friendly 24/7 customer support")}</p>
         </div>
         <div>
           <img src="/icons/Icon-secure.png" alt="Money Back" className="mx-auto mb-3 bg-black " />
-          <h4 className="font-semibold">MONEY BACK GUARANTEE</h4>
-          <p className="text-sm">We return money within 30 days</p>
+          <h4 className="font-semibold">{t("MONEY BACK GUARANTEE")}</h4>
+          <p className="text-sm">{t("We return money within 30 days")}</p>
         </div>
       </div>
     </div>

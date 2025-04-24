@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -59,6 +59,31 @@ export default function BestSellingProducts() {
       setStartIndex(startIndex - 1);
     }
   };
+  const targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + 5);
+
+  const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
+
+  function getTimeRemaining() {
+    const total = targetDate.getTime() - new Date().getTime();
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(total / (1000 * 60 * 60 * 24));
+    return { total, days, hours, minutes, seconds };
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updatedTime = getTimeRemaining();
+      setTimeLeft(updatedTime);
+      if (updatedTime.total <= 0) {
+        clearInterval(interval);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <div className="p-8 mt-30 ">
@@ -111,46 +136,46 @@ export default function BestSellingProducts() {
           </button>
         </div>
         <section className="bg-gradient-to-r from-black to-gray-900 text-white mt-40 ml-5 px-10 py-12 flex items-center justify-between">
-          <div className="max-w-xl space-y-6 ">
-            <span className=" text-3xl text-[#00ff66] px-3 py-1 rounded-full uppercase tracking-widest">
-            {t("Categories")}
-            </span>
-            <h2 className="text-4xl font-bold leading-snug">
-            {t("  Enhance Your  Music Experience")}
-            </h2>
+      <div className="max-w-xl space-y-6">
+        <span className=" text-3xl text-[#00ff66] px-3 py-1 rounded-full uppercase tracking-widest">
+          {t("Categories")}
+        </span>
+        <h2 className="text-4xl font-bold leading-snug">
+          {t("Enhance Your Music Experience")}
+        </h2>
 
-            <div className="flex space-x-4 mt-6 ">
-              <div className="text-center ">
-                <div className="text-2xl font-bold">23</div>
-                <div className="text-xs uppercase">{t("Hours")}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">05</div>
-                <div className="text-xs uppercase">{t("Days")}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">59</div>
-                <div className="text-xs uppercase">{t("Minutes")}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">35</div>
-                <div className="text-xs uppercase">{t("Seconds")}</div>
-              </div>
-            </div>
-
-            <button className="mt-6 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded">
-            {t("Buy Now!")}
-            </button>
+        <div className="flex space-x-4 mt-6">
+          <div className="text-center">
+            <div className="text-2xl font-bold">{String(timeLeft.hours).padStart(2, '0')}</div>
+            <div className="text-xs uppercase">{t("Hours")}</div>
           </div>
-
-          <div className="w-1/2">
-            <img
-              src="/images/earphone.png"
-              alt="speaker"
-              className="w-full h-auto object-contain"
-            />
+          <div className="text-center">
+            <div className="text-2xl font-bold">{String(timeLeft.days).padStart(2, '0')}</div>
+            <div className="text-xs uppercase">{t("Days")}</div>
           </div>
-        </section>
+          <div className="text-center">
+            <div className="text-2xl font-bold">{String(timeLeft.minutes).padStart(2, '0')}</div>
+            <div className="text-xs uppercase">{t("Minutes")}</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold">{String(timeLeft.seconds).padStart(2, '0')}</div>
+            <div className="text-xs uppercase">{t("Seconds")}</div>
+          </div>
+        </div>
+
+        <button className="mt-6 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded">
+          {t("Buy Now!")}
+        </button>
+      </div>
+
+      <div className="w-1/2">
+        <img
+          src="/images/earphone.png"
+          alt="speaker"
+          className="w-full h-auto object-contain"
+        />
+      </div>
+    </section>
       </div>
     </>
   );
