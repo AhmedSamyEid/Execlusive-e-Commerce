@@ -1,8 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import About from "./About";
+import Contact from "./components/Contact";
 import Home from "./components/pages/Home";
-import PageLayout from "./components/layouts/PageLayout";
-import Singup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
+import Singup from "./components/auth/Signup";
+import PageLayout from "./components/layouts/PageLayout";
+import { BrowserRouter, Route, Routes } from "react-router";
+
 function App() {
   return (
     <>
@@ -12,6 +15,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="signup" element={<Singup />} />
             <Route path="login" element={<Login />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Route>
         </Routes>
       </BrowserRouter>

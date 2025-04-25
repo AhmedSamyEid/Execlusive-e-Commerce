@@ -22,7 +22,7 @@ export default function Horesidar() {
   <div className="m-7 flex justify-center bg-amber-600 w-[100%]">
     <div className="wrapper relative ">
 <div className="sliders relative  flex overflow-hidden ">
-  {sidbasrs.map((slide) => {
+  {sidbasrs.map(() => {
     return(
       <div className="sider h-[400px] min-w-[100%] p-2">
         <img className="  min-w-[100%]" src={sidbasrs[currentIndex].src} alt={sidbasrs[currentIndex].alt} />
