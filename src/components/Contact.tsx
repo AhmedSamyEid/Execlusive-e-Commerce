@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 
 
 const ContactSection = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -41,23 +44,23 @@ const ContactSection = () => {
         <div className="bg-white p-8 rounded-md shadow-md space-y-8">
           <div className="flex items-start gap-4">
             <div className="bg-red-100 p-3 rounded-full">
-              <i className="fas fa-phone-alt text-red-500 text-xl"></i>
+              <img src="/icons/icons-phone.png" />
             </div>
             <div>
-              <h2 className="font-semibold text-lg">Call To Us</h2>
-              <p className="text-gray-600">We are available 24/7, 7 days a week.</p>
-              <p className="text-gray-800 font-medium">Phone: +8801611112222</p>
+              <h2 className="font-semibold text-lg">{t("Call To Us")}</h2>
+              <p className="text-gray-600">{t("We are available 24/7, 7 days a week.")}</p>
+              <p className="text-gray-800 font-medium">{t("Phone: +8801611112222")}</p>
             </div>
           </div>
           <hr />
           <div className="flex items-start gap-4">
             <div className="bg-red-100 p-3 rounded-full">
-              <i className="fas fa-envelope text-red-500 text-xl"></i>
+              <img src="/icons/icons-mail.png"/>
             </div>
             <div>
-              <h2 className="font-semibold text-lg">Write To US</h2>
-              <p className="text-gray-600">Fill out our form and we will contact you within 24 hours.</p>
-              <p className="text-gray-800 font-medium">Emails: customer@exclusive.com</p>
+              <h2 className="font-semibold text-lg">{t("Write To US")}</h2>
+              <p className="text-gray-600">{t("Fill out our form and we will contact you within 24 hours.")}</p>
+              <p className="text-gray-800 font-medium">{t("Emails: customer@exclusive.com")}</p>
               <p className="text-gray-800 font-medium">support@exclusive.com</p>
             </div>
           </div>
@@ -71,7 +74,7 @@ const ContactSection = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Your Name *"
+                placeholder={t("Your Name *")}
                 className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400"
               />
               <input
@@ -79,7 +82,7 @@ const ContactSection = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Your Email *"
+                placeholder={t("Your Email *")}
                 className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400"
               />
               <input
@@ -87,7 +90,7 @@ const ContactSection = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="Your Phone *"
+                placeholder={t("Your Phone *")}
                 className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400"
               />
             </div>
@@ -96,7 +99,7 @@ const ContactSection = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Your Message"
+                placeholder={t("Your Message")}
                 rows="6"
                 className="w-full p-4 bg-gray-100 rounded-md resize-none outline-none focus:ring-2 ring-red-400"
               ></textarea>
@@ -106,12 +109,13 @@ const ContactSection = () => {
                 type="submit"
                 className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition"
               >
-                Send Message
+                {t("Send Message")}
               </button>
             </div>
           </form>
         </div>
       </div>
+      
     </section>
   );
 };

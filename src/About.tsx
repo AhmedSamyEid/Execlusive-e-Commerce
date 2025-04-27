@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 export default function About() {
@@ -8,10 +8,10 @@ export default function About() {
 {src : "/images/image 51.png" , alt : "Frame" ,description : "Managing Director", name : "Emma Watson" },
 {src : "/images/will_Smith.png" , alt : "Frame" ,description : "Product Designer", name : "Will Smith" },
   ];
-    // const [startIndex, setStartIndex] = useState(0);
-    // const visibleCount = 3;
-    // setCurrentIndex(index);
-  
+    const [currentIndex, setCurrentIndex] = useState(Math.trunc(users.length / 2 ));
+    function pagantion (index : number) {
+      setCurrentIndex(index);
+    }
   const categories = [
     {
       src: "/icons/Services.png",
@@ -75,7 +75,7 @@ export default function About() {
             {categories.map((item, index) => (
               <div
                 key={index}
-                className="border-2 border-black hover:bg-red-400 cursor-pointer w-55 h-45 bg-yellow-50 flex flex-col items-center justify-center p-4 rounded-md"
+                className="border-2 border-black hover:bg-red-400 cursor-pointer w-55 h-50 bg-yellow-50 flex flex-col items-center justify-center p-4 rounded-md"
               >
                 <img
                   src={item.src}
@@ -90,22 +90,50 @@ export default function About() {
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-20 mt-10">
-  {users.map((item, index) => (
+  {users.map((item ) => (
     <div
-      key={index}
+    
       className="w-[294px] bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center hover:shadow-xl transition duration-300"
     >
       <img
         className="w-full h-[397px] object-cover rounded-md mb-4"
-        src={item.src}
-        alt={item.alt}
+        src={users[currentIndex].src}
+        alt={users[currentIndex].alt}
       />
       <h2 className="text-xl font-semibold mb-2">{t(item.name)}</h2>
       <h3 className="text-gray-600">{t(item.description)}</h3>
     </div>
   ))}
 </div>
-
+<div className="absolute w-full mt-20 right-5">
+<ul  className="flex items-center justify-center gap-5 ">
+  {users.map((_ , index)=>{
+    return(
+    <li className={` ${index === currentIndex ? "border-2 border-white bg-red-500" : "" }flex w-[15px] h-[15px]  rounded-full bg-[#808080] cursor-pointer`} onClick={()=> pagantion(index)}>
+    </li>
+    );
+    
+    
+  })} 
+    </ul>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center items-center mt-40">
+        <div>
+          <img src="/icons/3.png" alt="Free Delivery" className="mx-auto my-4 " />
+          <h4 className="font-semibold">{t("FREE AND FAST DELIVERY")}</h4>
+          <p className="text-sm">{t("Free delivery for all orders over $140")}</p>
+        </div>
+        <div>
+          <img src="/icons/1.png" alt="24/7 Support" className="mx-auto mb-3  " />
+          <h4 className="font-semibold">{t("24/7 CUSTOMER SERVICE")}</h4>
+          <p className="text-sm">{t("Friendly 24/7 customer support")}</p>
+        </div>
+        <div>
+          <img src="/icons/2.png" alt="Money Back" className="mx-auto mb-3  " />
+          <h4 className="font-semibold">{t("MONEY BACK GUARANTEE")}</h4>
+          <p className="text-sm">{t("We return money within 30 days")}</p>
+        </div>
+      </div>
       </section>
     </>
   );
