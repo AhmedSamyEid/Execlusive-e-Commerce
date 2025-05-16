@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-
-
 const ContactSection = () => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
@@ -11,6 +9,8 @@ const ContactSection = () => {
     phone: "",
     message: "",
   });
+
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -22,10 +22,14 @@ const ContactSection = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+  
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+      alert("❗الرجاء ملء جميع الحقول المطلوبة");
+      return;
+    }
 
     localStorage.setItem("contactFormData", JSON.stringify(formData));
-
-    alert("✅ تم حفظ البيانات بنجاح!");
+    setSuccessMessage("✅ تم حفظ البيانات بنجاح!");
 
   
     setFormData({
@@ -37,14 +41,14 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="p-10 max-w-6xl mx-auto">
+    <section className="p-5 sm:p-10 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
-  
-        <div className="bg-white p-8 rounded-md shadow-md space-y-8">
+    
+        <div className="bg-white p-6 sm:p-8 rounded-md shadow-md space-y-8">
           <div className="flex items-start gap-4">
             <div className="bg-red-100 p-3 rounded-full">
-              <img src="/icons/icons-phone.png" />
+              <img src="/icons/icons-phone.png" alt="Phone Icon" />
             </div>
             <div>
               <h2 className="font-semibold text-lg">{t("Call To Us")}</h2>
@@ -55,18 +59,33 @@ const ContactSection = () => {
           <hr />
           <div className="flex items-start gap-4">
             <div className="bg-red-100 p-3 rounded-full">
-              <img src="/icons/icons-mail.png"/>
+              <img src="/icons/icons-mail.png" alt="Mail Icon" />
             </div>
             <div>
               <h2 className="font-semibold text-lg">{t("Write To US")}</h2>
               <p className="text-gray-600">{t("Fill out our form and we will contact you within 24 hours.")}</p>
-              <p className="text-gray-800 font-medium">{t("Emails: customer@exclusive.com")}</p>
-              <p className="text-gray-800 font-medium">support@exclusive.com</p>
+              <p className="text-gray-800 font-medium">
+                <a href="mailto:customer@exclusive.com" className="text-red-500 hover:underline">
+                  customer@exclusive.com
+                </a>
+              </p>
+              <p className="text-gray-800 font-medium">
+                <a href="mailto:support@exclusive.com" className="text-red-500 hover:underline">
+                  support@exclusive.com
+                </a>
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white p-8 rounded-md shadow-md">
+      
+        <div className="bg-white p-6 sm:p-8 rounded-md shadow-md">
+          <h2 className="text-xl font-bold mb-4">{t("Send us a Message")}</h2>
+
+          {successMessage && (
+            <p className="text-green-600 mb-4 font-medium">{successMessage}</p>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <input
@@ -75,7 +94,7 @@ const ContactSection = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder={t("Your Name *")}
-                className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400"
+                className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400 w-full"
               />
               <input
                 type="email"
@@ -83,7 +102,7 @@ const ContactSection = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder={t("Your Email *")}
-                className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400"
+                className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400 w-full"
               />
               <input
                 type="tel"
@@ -91,9 +110,10 @@ const ContactSection = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder={t("Your Phone *")}
-                className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400"
+                className="p-3 bg-gray-100 rounded-md outline-none focus:ring-2 ring-red-400 w-full"
               />
             </div>
+
             <div>
               <textarea
                 name="message"
@@ -104,6 +124,7 @@ const ContactSection = () => {
                 className="w-full p-4 bg-gray-100 rounded-md resize-none outline-none focus:ring-2 ring-red-400"
               ></textarea>
             </div>
+
             <div className="text-right">
               <button
                 type="submit"
@@ -114,8 +135,8 @@ const ContactSection = () => {
             </div>
           </form>
         </div>
+
       </div>
-      
     </section>
   );
 };
