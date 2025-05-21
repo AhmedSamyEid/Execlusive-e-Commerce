@@ -1,4 +1,5 @@
 
+import CartPage from "../ui/CartPage";
 import Horesider from "../ui/Horesidar";
 import Sidbar from "../ui/Sidbar";
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <div className="container ">
       <Sidbar />
       <Horesider />
+      <CartPage />
     </div>
     
     </div>

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 const ContactSection = () => {
   const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,17 +13,16 @@ const ContactSection = () => {
 
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-  
     if (!formData.name || !formData.email || !formData.phone || !formData.message) {
       alert("❗الرجاء ملء جميع الحقول المطلوبة");
       return;
@@ -31,7 +31,6 @@ const ContactSection = () => {
     localStorage.setItem("contactFormData", JSON.stringify(formData));
     setSuccessMessage("✅ تم حفظ البيانات بنجاح!");
 
-  
     setFormData({
       name: "",
       email: "",
@@ -44,7 +43,6 @@ const ContactSection = () => {
     <section className="p-5 sm:p-10 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
-    
         <div className="bg-white p-6 sm:p-8 rounded-md shadow-md space-y-8">
           <div className="flex items-start gap-4">
             <div className="bg-red-100 p-3 rounded-full">
@@ -78,7 +76,6 @@ const ContactSection = () => {
           </div>
         </div>
 
-      
         <div className="bg-white p-6 sm:p-8 rounded-md shadow-md">
           <h2 className="text-xl font-bold mb-4">{t("Send us a Message")}</h2>
 
@@ -120,7 +117,7 @@ const ContactSection = () => {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder={t("Your Message")}
-                rows="6"
+                rows={6}
                 className="w-full p-4 bg-gray-100 rounded-md resize-none outline-none focus:ring-2 ring-red-400"
               ></textarea>
             </div>

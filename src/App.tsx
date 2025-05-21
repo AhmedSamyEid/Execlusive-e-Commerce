@@ -5,6 +5,7 @@ import Login from "./components/auth/Login";
 import Singup from "./components/auth/Signup";
 import PageLayout from "./components/layouts/PageLayout";
 import { BrowserRouter, Route, Routes } from "react-router";
+import CartPage from "./components/ui/CartPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/cart" element={<CartPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -112,21 +112,30 @@ export default function ExploreOurProducts() {
         </div>
         <div className="flex justify-center gap-4 flex-wrap space-x-4 overflow-hidden ">
           {Products.slice(startIndex, startIndex + visibleCount).map((item) => (
-            <div
-              key={item.id}
-              className="border bg-yellow-50 p-4 rounded-md my-10 w-[270px] relative"
-            >
-              <img
-                className="w-full h-40 object-contain mb-3"
-                src={item.src}
-                alt={item.alt}
-              />
-              <h4> {t(item.title)}</h4>
-              <div className="text-lg font-bold text-red-600">{item.price}</div>
-              <div className="text-sm text-yellow-500">
-                ⭐⭐⭐⭐⭐⭐ {item.rating} ({item.reviews})
-              </div>
-            </div>
+          <div
+  key={item.id}
+  className="group border bg-yellow-50 p-4 rounded-md my-10 w-[270px] relative overflow-hidden"
+>
+  <img
+    className="w-full h-40 object-contain mb-3"
+    src={item.src}
+    alt={item.alt}
+  />
+  <h4>{t(item.title)}</h4>
+  <div className="text-lg font-bold text-red-600">{item.price}</div>
+  <div className="text-sm text-yellow-500">
+    ⭐⭐⭐⭐⭐⭐ {item.rating} ({item.reviews})
+  </div>
+
+
+  <button
+    onClick={() => handleAddToCart(item)}
+    className="absolute bottom-35 left-1/2 -translate-x-1/2 bg-black w-50 cursor-pointer text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition duration-300"
+  >
+    {t("Add to Cart")}
+  </button>
+</div>
+
           ))}
         </div>
         <div className="mt-6 text-center">

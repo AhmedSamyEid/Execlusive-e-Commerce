@@ -86,6 +86,15 @@ export default function BestSellingProducts() {
     return () => clearInterval(interval);
   }, []);
 
+    const handleAddToCart = (item: Product) => {
+    const stored: Product[] = JSON.parse(
+      localStorage.getItem("cartItems") || "[]"
+    );
+    const updated = [...stored, item];
+    localStorage.setItem("cartItems", JSON.stringify(updated));
+    navigate("/cart");
+  };
+
   return (
   <div className="p-4 sm:p-8 mt-10">
   <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
@@ -102,25 +111,40 @@ export default function BestSellingProducts() {
     </div>
   </div>
 
-  <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+  <div className="flex justify-center gap-4 flex-wrap space-x-4 overflow-hidden">
     {products.slice(startIndex, startIndex + visibleCount).map((item, index) => (
-      <div
-        key={index}
-        className="border bg-yellow-50 p-3 rounded-md w-full sm:w-[230px]"
-      >
-        <img
-          src={item.src.trim()}
-          alt={item.alt}
-          className="w-full h-40 object-contain mb-3"
-        />
-        <h4 className="font-semibold text-sm sm:text-base">{t(item.title)}</h4>
-        <div className="text-xs text-gray-500 line-through">{item.oldPrice}</div>
-        <div className="text-base font-bold text-red-600">{item.price}</div>
-        <div className="text-sm text-yellow-500">
-          ⭐ {item.rating} ({item.reviews})
-        </div>
-      </div>
+    <div
+  key={item.id}
+  className="border bg-yellow-50 p-3 rounded-md w-full sm:w-[230px] group"
+>
+  <img
+    src={item.src.trim()}
+    alt={item.alt}
+    className="w-full h-40 object-contain mb-3"
+  />
+  <h4 className="font-semibold text-sm sm:text-base">{t(item.title)}</h4>
+  <div className="text-xs text-gray-500 line-through">{item.oldPrice}</div>
+  <div className="text-base font-bold text-red-600">{item.price}</div>
+  <div className="text-sm text-yellow-500">
+    ⭐ {item.rating} ({item.reviews})
+  </div>
+  <button
+    onClick={() => handleAddToCart(item)}
+    className="mt-3 w-full bg-black text-white py-1 rounded cursor-pointer transition
+              opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+  >
+    Add to Cart
+  </button>
+</div>
+
     ))}
+      <button
+              onClick={() => handleAddToCart(item)}
+              className="mt-3 w-full bg-red-500 text-white py-1 rounded hover:bg-red-600 transition
+                        opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+            >
+              Add to Cart
+            </button>
   </div>
 
   <div className="mt-6 text-center">

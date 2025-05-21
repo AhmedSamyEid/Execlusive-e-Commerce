@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, NavLink, useNavigate } from "react-router";
 import { FaBars, FaTimes, FaSearch, FaHeart, FaShoppingCart, FaUser   } from "react-icons/fa";
@@ -15,6 +15,7 @@ export default function Header() {
     { name: "About", path: "/about" },
     { name: "Sign Up", path: "/signup" },
     { name: "Login", path: "/login" },
+    
   ];
   const navigate = useNavigate();
 
@@ -22,6 +23,18 @@ export default function Header() {
     localStorage.removeItem("LoggedInUser"); 
     navigate("/login"); 
   }
+ const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("cartItems")) || [];
+    setCartCount(stored.length);
+  }, []);
+
+
+  const handleCartUpdate = () => {
+    const updated = JSON.parse(localStorage.getItem("cartItems")) || [];
+    setCartCount(updated.length);
+  };
   return (
     <header className="border-b border-gray-200 bg-white shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -57,7 +70,14 @@ export default function Header() {
           </div>
 
           <FaHeart className="text-xl text-gray-700 hover:text-red-500 cursor-pointer" />
-          <FaShoppingCart className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
+           <Link to="/cart" className="relative">
+        <FaShoppingCart className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
+        {cartCount > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+            {cartCount}
+          </span>
+        )}
+      </Link>
 
         
           <div className="relative">
@@ -113,11 +133,22 @@ export default function Header() {
               <FaSearch className="text-gray-600" />
             </div>
 
-            <div className="flex items-center gap-5 mt-3">
-              <FaHeart className="text-xl text-gray-700 hover:text-red-500 cursor-pointer" />
-              <FaShoppingCart className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer" />
-              <FaUser className="text-xl text-gray-700 hover:text-purple-500 cursor-pointer" />
-            </div>
+          <div>
+
+      <nav className="p-4 flex justify-end">
+        <Link to="/cart" className="relative">
+          <FaShoppingCart className="text-2xl text-gray-700 hover:text-blue-500" />
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+              {cartCount}
+            </span>
+          )}
+        </Link>
+      </nav>
+
+    
+    </div>
+      
           </ul>
         </div>
       )}

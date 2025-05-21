@@ -73,7 +73,6 @@ export default function About() {
 
   return (
     <>
-
       <nav className="m-10 text-gray-600 text-sm">
         <Link to="/" className="hover:underline">
           {t("Home")}
@@ -85,13 +84,13 @@ export default function About() {
       </nav>
 
       <section className="m-20">
-      
         <div className="container flex flex-col md:flex-row justify-between items-center gap-11">
           <div className="md:w-1/2">
-            <h1 className="font-bold text-5xl mb-6">Our Story</h1>
+            <h1 className="font-bold text-5xl mb-6">{t("Our Story")}</h1>
             <p className="text-lg mb-4 leading-relaxed text-gray-700">
-              Launched in 2015, Exclusive is South Asia’s premier online
-              shopping marketplace with an active presence in Bangladesh.
+              {t(
+                "Launched in 2015, Exclusive is South Asia’s premier online   shopping marketplace with an active presence in Bangladesh."
+              )}
             </p>
             <p className="text-lg leading-relaxed text-gray-700">
               Exclusive offers a diverse assortment in categories ranging from
@@ -107,7 +106,6 @@ export default function About() {
           </div>
         </div>
 
-    
         <div className="my-20">
           <div className="flex justify-center flex-wrap gap-8">
             {categories.map((item, index) => (
@@ -129,7 +127,6 @@ export default function About() {
           </div>
         </div>
 
-
         <div className="flex justify-center mt-10">
           <div className="bg-white rounded-lg shadow-lg p-6 w-[300px] text-center">
             <img
@@ -146,7 +143,6 @@ export default function About() {
           </div>
         </div>
 
-        
         <div className="flex justify-center mt-6">
           <ul className="flex gap-3">
             {users.map((_, index) => (
