@@ -1,30 +1,38 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 
+type FormData = {
+  name: string;
+  email: string;
+  phone: string; 
+  message: string;
+};
+
 const ContactSection = () => {
   const { t } = useTranslation();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
 
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.phone || !formData.message) {
-      alert("❗الرجاء ملء جميع الحقول المطلوبة");
+      alert("❗ الرجاء ملء جميع الحقول المطلوبة");
       return;
     }
 
@@ -42,40 +50,12 @@ const ContactSection = () => {
   return (
     <section className="p-5 sm:p-10 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-
+      
         <div className="bg-white p-6 sm:p-8 rounded-md shadow-md space-y-8">
-          <div className="flex items-start gap-4">
-            <div className="bg-red-100 p-3 rounded-full">
-              <img src="/icons/icons-phone.png" alt="Phone Icon" />
-            </div>
-            <div>
-              <h2 className="font-semibold text-lg">{t("Call To Us")}</h2>
-              <p className="text-gray-600">{t("We are available 24/7, 7 days a week.")}</p>
-              <p className="text-gray-800 font-medium">{t("Phone: +8801611112222")}</p>
-            </div>
-          </div>
-          <hr />
-          <div className="flex items-start gap-4">
-            <div className="bg-red-100 p-3 rounded-full">
-              <img src="/icons/icons-mail.png" alt="Mail Icon" />
-            </div>
-            <div>
-              <h2 className="font-semibold text-lg">{t("Write To US")}</h2>
-              <p className="text-gray-600">{t("Fill out our form and we will contact you within 24 hours.")}</p>
-              <p className="text-gray-800 font-medium">
-                <a href="mailto:customer@exclusive.com" className="text-red-500 hover:underline">
-                  customer@exclusive.com
-                </a>
-              </p>
-              <p className="text-gray-800 font-medium">
-                <a href="mailto:support@exclusive.com" className="text-red-500 hover:underline">
-                  support@exclusive.com
-                </a>
-              </p>
-            </div>
-          </div>
+      
         </div>
 
+      
         <div className="bg-white p-6 sm:p-8 rounded-md shadow-md">
           <h2 className="text-xl font-bold mb-4">{t("Send us a Message")}</h2>
 
@@ -132,7 +112,6 @@ const ContactSection = () => {
             </div>
           </form>
         </div>
-
       </div>
     </section>
   );
