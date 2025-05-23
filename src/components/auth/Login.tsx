@@ -1,9 +1,9 @@
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   function handleLogin(data: { email: string; password: string }) {
@@ -12,21 +12,19 @@ export default function Login() {
     const users = JSON.parse(localStorage.getItem("Users") || "[]");
 
     const matchedUser = users.find(
-      (user : any) =>
-        user.emilorphone === email && user.password === password
+      (user: any) =>
+       user.emilorphone === email && user.password === password
     );
 
     if (matchedUser) {
       alert("✅ Login successful!");
       localStorage.setItem("LoggedInUser", JSON.stringify(matchedUser));
-
-    
-        navigate("/");
+      navigate("/");
     } else {
       alert("❌ Invalid email/phone or password.");
     }
-
   }
+
   const {
     register,
     handleSubmit,
@@ -46,32 +44,31 @@ export default function Login() {
 
         <div className="p-10 flex flex-col justify-center">
           <h2 className="text-2xl font-bold mb-1">
-            {t("Log in to")}{" "}
-            <span className="text-red-500">{t("Exclusive")}</span>
+            {t("Log in to")} <span className="text-red-500">{t("Exclusive")}</span>
           </h2>
-          <p className="text-sm text-gray-600 mb-6">
-            {t("Enter your details below")}
-          </p>
+          <p className="text-sm text-gray-600 mb-6">{t("Enter your details below")}</p>
 
           <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
             <input
               type="text"
               placeholder={t("Email or Phone Number")}
-              {...register("email", { required: "يجب كتبة الايميل" })}
+              {...register("email", { required: "يجب كتابة الإيميل أو رقم الهاتف" })}
               className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none focus:border-black"
             />
             <p className="text-red-600 font-bold">
-              {typeof errors?.email?.message === "string"}
+              {errors.email?.message as string}
             </p>
+
             <input
               type="password"
               placeholder={t("Password")}
-              {...register("password", { required: "يجب كتبة كلمة السر" })}
+              {...register("password", { required: "يجب كتابة كلمة السر" })}
               className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none focus:border-black"
             />
             <p className="text-red-600 font-bold">
-              {typeof errors?.email?.message === "string"}
+              {errors.password?.message as string}
             </p>
+
             <div className="flex items-center justify-between mt-2">
               <button
                 type="submit"

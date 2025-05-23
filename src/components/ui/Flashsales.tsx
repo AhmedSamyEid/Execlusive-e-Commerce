@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useNavigate } from "react-router"; 
-
+import { useNavigate } from "react-router";
 
 interface Product {
   id: number;
@@ -78,8 +77,27 @@ export default function FlashSales() {
     },
   ];
 
-  const [startIndex, setStartIndex] = useState<number>(0);
-  const visibleCount = 5;
+  const [startIndex, setStartIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(5); 
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setVisibleCount(1); 
+      } else if (width < 768) {
+        setVisibleCount(2); 
+      } else if (width < 1024) {
+        setVisibleCount(3);
+      } else {
+        setVisibleCount(5); 
+      }
+    };
+
+    handleResize(); 
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const nextSlide = () => {
     if (startIndex + visibleCount < Flash.length) {
@@ -94,35 +112,33 @@ export default function FlashSales() {
   };
 
   const handleAddToCart = (item: Product) => {
-    const stored: Product[] = JSON.parse(
-      localStorage.getItem("cartItems") || "[]"
-    );
+    const stored: Product[] = JSON.parse(localStorage.getItem("cartItems") || "[]");
     const updated = [...stored, item];
     localStorage.setItem("cartItems", JSON.stringify(updated));
     navigate("/cart");
   };
 
   return (
-    <div className="p-8 mt-30">
+    <div className="p-4 mt-10">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-4xl">{t("Flash Sales")}</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">{t("Flash Sales")}</h2>
         <div className="space-x-2">
           <button
             onClick={prevSlide}
-            className="p-2 cursor-pointer border rounded-full"
+            className="p-2 cursor-pointer border rounded-full hover:bg-gray-200"
           >
             <FaArrowLeft />
           </button>
           <button
             onClick={nextSlide}
-            className="p-2 cursor-pointer border rounded-full"
+            className="p-2 cursor-pointer border rounded-full hover:bg-gray-200"
           >
             <FaArrowRight />
           </button>
         </div>
       </div>
 
-      <div className="flex justify-center gap-4 flex-wrap space-x-4 overflow-hidden">
+      <div className="flex gap-4 overflow-hidden justify-center flex-wrap">
         {Flash.slice(startIndex, startIndex + visibleCount).map((item) => (
           <div
             key={item.id}
@@ -146,10 +162,10 @@ export default function FlashSales() {
             </div>
             <button
               onClick={() => handleAddToCart(item)}
-              className="mt-3 w-full bg-black text-white py-1 rounded  transition
-                        opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+              className="mt-3 w-full bg-black text-white py-1 rounded transition
+              opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
             >
-              Add to Cart
+              {t("Add to Cart")}
             </button>
           </div>
         ))}
