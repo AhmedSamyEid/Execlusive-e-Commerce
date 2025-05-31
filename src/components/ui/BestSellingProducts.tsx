@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useNavigate } from "react-router";
-
 
 type Product = {
   id: number;
@@ -18,8 +17,7 @@ type Product = {
 export default function BestSellingProducts() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  const products: Product[] = [
+  const products = [
     {
       id: 1,
       src: "/images/shirt.png",
@@ -98,7 +96,7 @@ export default function BestSellingProducts() {
       if (updatedTime.total <= 0) clearInterval(interval);
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, );
 
   const handleAddToCart = (item: Product) => {
     const stored: Product[] = JSON.parse(

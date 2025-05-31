@@ -1,39 +1,60 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+type User = {
+  emilorphone: string;
+  password: string;
+  name?: string; 
+  email?: string;
+  phone?: string;
+};
+
+
+type LoginFormInputs = {
+  email: string;
+  password: string;
+};
 
 export default function Login() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  function handleLogin(data: { email: string; password: string }) {
-    const { email, password } = data;
-
-    const users = JSON.parse(localStorage.getItem("Users") || "[]");
-
-    const matchedUser = users.find(
-      (user: any) =>
-       user.emilorphone === email && user.password === password
-    );
-
-    if (matchedUser) {
-      alert("✅ Login successful!");
-      localStorage.setItem("LoggedInUser", JSON.stringify(matchedUser));
-      navigate("/");
-    } else {
-      alert("❌ Invalid email/phone or password.");
-    }
-  }
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<LoginFormInputs>();
+
+  const handleLogin: SubmitHandler<LoginFormInputs> = (data) => {
+    const { email, password } = data;
+
+
+    const storedUsers = localStorage.getItem("Users");
+    const users: User[] = storedUsers ? JSON.parse(storedUsers) : [];
+
+    const matchedUser = users.find(
+      (user: User) => user.emilorphone === email && user.password === password
+    );
+
+    if (matchedUser) {
+      toast.success(t("✅ Login successful!"));
+      localStorage.setItem("LoggedInUser", JSON.stringify(matchedUser));
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    } else {
+      toast.error(t("❌ Invalid email/phone or password."));
+    }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl shadow-md rounded-md overflow-hidden">
+      
         <div className="hidden md:flex items-center justify-center bg-blue-50">
           <img
             src="/images/dl.beatsnoop 1.png"
@@ -52,22 +73,22 @@ export default function Login() {
             <input
               type="text"
               placeholder={t("Email or Phone Number")}
-              {...register("email", { required: "يجب كتابة الإيميل أو رقم الهاتف" })}
+              {...register("email", { required: t("Email or phone is required") })}
               className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none focus:border-black"
             />
-            <p className="text-red-600 font-bold">
-              {errors.email?.message as string}
-            </p>
+            {errors.email && (
+              <p className="text-red-600 font-bold">{errors.email.message}</p>
+            )}
 
             <input
               type="password"
               placeholder={t("Password")}
-              {...register("password", { required: "يجب كتابة كلمة السر" })}
+              {...register("password", { required: t("Password is required") })}
               className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none focus:border-black"
             />
-            <p className="text-red-600 font-bold">
-              {errors.password?.message as string}
-            </p>
+            {errors.password && (
+              <p className="text-red-600 font-bold">{errors.password.message}</p>
+            )}
 
             <div className="flex items-center justify-between mt-2">
               <button
@@ -83,6 +104,7 @@ export default function Login() {
           </form>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={1000} />
     </div>
   );
 }
