@@ -1,122 +1,100 @@
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
+const CartPage = () => {
+  const [cartItems, setCartItems] = useState([
+    { id: 1, name: "LCD Monitor", price: 650, qty: 1, image: "/images/screen.png" },
+    { id: 2, name: "H1 Gamepad", price: 550, qty: 2, image: "/images/PlayStation_arm.png" },
+  ]);
 
-type User = {
-  emilorphone: string;
-  password: string;
-  name?: string;
-  email?: string;
-  phone?: string;
-};
-
-
-type LoginFormInputs = {
-  email: string;
-  password: string;
-};
-
-export default function Login() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormInputs>();
-
-  const handleLogin: SubmitHandler<LoginFormInputs> = (data) => {
-    const { email, password } = data;
-
-
-    let users: User[] = [];
-    try {
-      const storedUsers = localStorage.getItem("Users");
-      users = storedUsers ? (JSON.parse(storedUsers) as User[]) : [];
-    } catch (error) {
-      console.error("Error parsing stored users:", error);
-      toast.error(t("❌ Error reading user data."));
-      return;
-    }
-
-  
-    const matchedUser = users.find(
-      (user) => user.emilorphone === email && user.password === password
+  const handleQtyChange = (id: number, qty: number) => {
+    const updated = cartItems.map((item) =>
+      item.id === id ? { ...item, qty } : item
     );
-
-    if (matchedUser) {
-      toast.success(t("✅ Login successful!"));
-      localStorage.setItem("LoggedInUser", JSON.stringify(matchedUser));
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
-    } else {
-      toast.error(t("❌ Invalid email/phone or password."));
-    }
+    setCartItems(updated);
   };
 
+  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white">
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl shadow-md rounded-md overflow-hidden">
+    <div className="p-6 lg:p-16 bg-white text-black">
+      <p className="text-sm text-gray-500 mb-4">Home / <span className="font-medium text-black">Cart</span></p>
+
+    
+      <div className="w-full overflow-x-auto">
+        <table className="w-full border text-sm text-left">
+          <thead className="bg-gray-100">
+            <tr className="uppercase text-gray-500">
+              <th className="p-4">Product</th>
+              <th className="p-4">Price</th>
+              <th className="p-4">Quantity</th>
+              <th className="p-4">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cartItems.map((item) => (
+              <tr key={item.id} className="border-b">
+                <td className="p-4 flex items-center gap-4">
+                  <img src={item.image} alt={item.name} className="w-16 h-16 object-contain" />
+                  <span>{item.name}</span>
+                </td>
+                <td className="p-4">${item.price}</td>
+                <td className="p-4">
+                  <select
+                    className="border p-1"
+                    value={item.qty}
+                    onChange={(e) => handleQtyChange(item.id, +e.target.value)}
+                  >
+                    {[1, 2, 3, 4, 5].map((q) => (
+                      <option key={q} value={q}>{q.toString().padStart(2, "0")}</option>
+                    ))}
+                  </select>
+                </td>
+                <td className="p-4">${item.price * item.qty}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+    
+      <div className="flex flex-col lg:flex-row justify-between mt-6 gap-4">
+        <button className="border px-4 py-2 text-sm">Return To Shop</button>
+        <button className="border px-4 py-2 text-sm">Update Cart</button>
+      </div>
+
+    
+      <div className="flex flex-col  lg:flex-row justify-between mt-10 gap-8">
       
-        <div className="hidden md:flex items-center justify-center bg-blue-50">
-          <img
-            src="/images/dl.beatsnoop 1.png"
-            alt="Login Illustration"
-            className="w-full h-auto object-contain p-8"
+        <div className="flex gap-4 h-10">
+          <input
+            type="text"
+            placeholder="Coupon Code"
+            className="border px-4 py-2 text-sm"
           />
+          <button className="bg-red-500 text-white px-4 py-2 text-sm">Apply Coupon</button>
         </div>
 
-      
-        <div className="p-10 flex flex-col justify-center">
-          <h2 className="text-2xl font-bold mb-1">
-            {t("Log in to")}{" "}
-            <span className="text-red-500">{t("Exclusive")}</span>
-          </h2>
-          <p className="text-sm text-gray-600 mb-6">
-            {t("Enter your details below")}
-          </p>
-
-          <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
-            <input
-              type="text"
-              placeholder={t("Email or Phone Number")}
-              {...register("email", { required: t("Email or phone is required") })}
-              className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none focus:border-black"
-            />
-            {errors.email && (
-              <p className="text-red-600 font-bold">{errors.email.message}</p>
-            )}
-
-            <input
-              type="password"
-              placeholder={t("Password")}
-              {...register("password", { required: t("Password is required") })}
-              className="w-full border-b border-gray-300 px-2 py-2 focus:outline-none focus:border-black"
-            />
-            {errors.password && (
-              <p className="text-red-600 font-bold">{errors.password.message}</p>
-            )}
-
-            <div className="flex items-center justify-between mt-2">
-              <button
-                type="submit"
-                className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition"
-              >
-                {t("Log In")}
-              </button>
-              <a href="#" className="text-red-500 text-sm hover:underline">
-                {t("Forget Password?")}
-              </a>
-            </div>
-          </form>
+        <div className="border p-6 w-full lg:w-1/3">
+          <h3 className="font-semibold text-lg mb-4">Cart Total</h3>
+          <div className="flex justify-between mb-2 text-sm">
+            <span>Subtotal:</span>
+            <span>${subtotal}</span>
+          </div>
+          <div className="flex justify-between mb-2 text-sm">
+            <span>Shipping:</span>
+            <span className="text-green-600">Free</span>
+          </div>
+          <div className="flex justify-between font-semibold text-base border-t pt-2">
+            <span>Total:</span>
+            <span>${subtotal}</span>
+          </div>
+          <button className="w-full bg-red-500 text-white py-2 mt-4">
+            Process to checkout
+          </button>
         </div>
       </div>
-      <ToastContainer position="top-right" autoClose={1000} />
     </div>
   );
-}
+};
+
+export default CartPage;
