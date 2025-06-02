@@ -89,14 +89,15 @@ export default function BestSellingProducts() {
     return { total, days, hours, minutes, seconds };
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const updatedTime = getTimeRemaining();
-      setTimeLeft(updatedTime);
-      if (updatedTime.total <= 0) clearInterval(interval);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, );
+useEffect(() => {
+  const interval = setInterval(() => {
+    const updatedTime = getTimeRemaining();
+    setTimeLeft(updatedTime);
+    if (updatedTime.total <= 0) clearInterval(interval);
+  }, 1000);
+  return () => clearInterval(interval);
+}, []);  
+
 
   const handleAddToCart = (item: Product) => {
     const stored: Product[] = JSON.parse(
