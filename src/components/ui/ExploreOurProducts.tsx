@@ -201,10 +201,10 @@ export default function ExploreOurProducts() {
       </div>
 
     
-      <div className="mt-12 border-t pt-6">
-        <h3 className="text-2xl font-semibold mb-4">{t("Shopping Cart")}</h3>
+      <div className="mt-12 pt-6">
+        
         {cart.length === 0 ? (
-          <p>{t("Your cart is empty.")}</p>
+          <p></p>
         ) : (
           <ul>
             {cart.map((item) => (
