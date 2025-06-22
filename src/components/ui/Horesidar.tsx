@@ -26,7 +26,7 @@ export default function Horesidar() {
             <img
               src={sidbasrs[currentIndex].src}
               alt={sidbasrs[currentIndex].alt}
-              className="w-full h-auto object-contain"
+              className="w-full h-100 object-contain"
             />
           </div>
         </div>
