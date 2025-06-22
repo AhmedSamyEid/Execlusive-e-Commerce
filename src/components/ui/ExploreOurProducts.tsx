@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 interface Product {
   id: number;
@@ -19,7 +20,7 @@ interface CartItem extends Product {
 
 export default function ExploreOurProducts() {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const Products: Product[] = [
     {
       id: 1,
@@ -97,7 +98,7 @@ export default function ExploreOurProducts() {
 
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(4);
-  const [cart, setCart] = useState<CartItem[]>([]);
+
 
   useEffect(() => {
     const updateVisibleCount = () => {
@@ -126,27 +127,31 @@ export default function ExploreOurProducts() {
   };
 
   const handleAddToCart = (item: Product) => {
-    setCart((prevCart) => {
-      const existingItemIndex = prevCart.findIndex((i) => i.id === item.id);
-      if (existingItemIndex !== -1) {
-    
-        const updatedCart = prevCart.map((cartItem, index) =>
-          index === existingItemIndex
-            ? { ...cartItem, qty: cartItem.qty + 1 }
-            : cartItem
-        );
-        return updatedCart;
-      } else {
-        return [
-          ...prevCart,
-          {
-            ...item,
-            qty: 1,
-            priceNumber: Number(item.price.replace("$", "")),
-          },
-        ];
-      }
-    });
+    const stored: CartItem[] = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+    const existingIndex = stored.findIndex((i) => i.id === item.id);
+
+    let updatedCart: CartItem[];
+
+    if (existingIndex !== -1) {
+      updatedCart = stored.map((cartItem, index) =>
+        index === existingIndex
+          ? { ...cartItem, qty: cartItem.qty + 1 }
+          : cartItem
+      );
+    } else {
+      updatedCart = [
+        ...stored,
+        {
+          ...item,
+          qty: 1,
+          priceNumber: Number(item.price.replace("$", "")),
+        },
+      ];
+    }
+
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+    navigate("/cart");
   };
 
   return (
@@ -192,29 +197,13 @@ export default function ExploreOurProducts() {
 
             <button
               onClick={() => handleAddToCart(item)}
-              className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition duration-300"
+              className="mt-3 w-full bg-black text-white py-1 rounded transition
+              opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
             >
               {t("Add to Cart")}
             </button>
           </div>
         ))}
-      </div>
-
-    
-      <div className="mt-12 pt-6">
-        
-        {cart.length === 0 ? (
-          <p></p>
-        ) : (
-          <ul>
-            {cart.map((item) => (
-              <li key={item.id} className="mb-2 flex justify-between">
-                <span>{t(item.title)} x {item.qty}</span>
-                <span>${(item.priceNumber * item.qty).toFixed(2)}</span>
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
 
       <div className="mt-8 text-center">
