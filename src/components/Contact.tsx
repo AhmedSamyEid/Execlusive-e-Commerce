@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,6 +11,7 @@ interface FormData {
 }
 
 export default function ContactForm() {
+    const { t } = useTranslation();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -58,7 +60,7 @@ export default function ContactForm() {
           <input
             type="text"
             name="name"
-            placeholder="Your Name *"
+            placeholder={t("Your Name *")}
             value={formData.name}
             onChange={handleChange}
             className="border p-2 rounded w-full"
@@ -67,7 +69,7 @@ export default function ContactForm() {
           <input
             type="email"
             name="email"
-            placeholder="Your Email *"
+            placeholder={t("Your Email *")}
             value={formData.email}
             onChange={handleChange}
             className="border p-2 rounded w-full"
@@ -76,7 +78,7 @@ export default function ContactForm() {
           <input
             type="tel"
             name="phone"
-            placeholder="Your Phone *"
+            placeholder={t("Your Phone *")}
             value={formData.phone}
             onChange={handleChange}
             className="border p-2 rounded w-full"
@@ -85,7 +87,7 @@ export default function ContactForm() {
         </div>
         <textarea
           name="message"
-          placeholder="Your Message"
+          placeholder={t("Your Message")}
           value={formData.message}
           onChange={handleChange}
           className="border p-2 rounded w-full h-40"

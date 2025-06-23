@@ -146,7 +146,7 @@ export default function FlashSales() {
             <button
               onClick={() => handleAddToCart(item)}
               className="mt-3 w-full bg-black text-white py-1 rounded transition
-              opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+              "
             >
               {t("Add to Cart")}
             </button>

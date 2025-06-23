@@ -12,7 +12,7 @@ interface CartItem {
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [updateTrigger, setUpdateTrigger] = useState(0);
+
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("cartItems") || "[]");
@@ -42,10 +42,7 @@ const CartPage = () => {
     localStorage.setItem("cartItems", JSON.stringify(updated));
   };
 
-  const handleUpdateCart = () => {
-    setUpdateTrigger((prev) => prev + 1);
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  };
+
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qty,
@@ -118,7 +115,7 @@ const CartPage = () => {
           <div className="mt-6 text-right">
             <p className="text-xl font-bold">Subtotal: ${subtotal}</p>
             <button
-              onClick={handleUpdateCart}
+              
               className="mt-4 bg-black text-white px-6 py-2 rounded hover:bg-gray-800"
             >
               Update Cart
