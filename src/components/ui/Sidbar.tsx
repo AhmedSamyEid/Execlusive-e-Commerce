@@ -3,7 +3,6 @@ import { Link } from "react-router";
 
 export default function Sidebar() {
   const { t } = useTranslation();
-
   const sidebarLinks = [
     { name: t("Woman’s Fashion"), path: "/" },
     { name: t("Men’s Fashion"), path: "/" },
@@ -18,7 +17,7 @@ export default function Sidebar() {
 
   return (
     <div className="hidden md:block border-r border-gray-300 md:min-w-[200px] p-4">
-      <ul className="space-y-4">
+      <ul className="spachiddene-y-4">
         {sidebarLinks.map((link, index) => (
           <li key={index}>
             <Link

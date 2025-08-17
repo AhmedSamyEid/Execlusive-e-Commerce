@@ -32,7 +32,7 @@ export default function Horesidar() {
             <div
               key={index}
               onClick={() => pagantion(index)}
-              className={`w-3 h-3 rounded-full cursor-pointer transition-all  ${currentIndex === index ? "bg-red-500 border border-white" : "bg-gray-400"} translate-y-[-125px] sm:translate-y-0`}
+              className={`w-3 h-3 rounded-full cursor-pointer transition-all  ${currentIndex === index ? "bg-red-500 border border-white" : "bg-gray-400"} `}
             ></div>
           ))}
         </div>
