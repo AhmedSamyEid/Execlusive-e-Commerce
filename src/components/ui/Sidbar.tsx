@@ -17,7 +17,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="border-r border-gray-300 md:min-w-[200px] p-4">
+    <div className="hidden md:block border-r border-gray-300 md:min-w-[200px] p-4">
       <ul className="space-y-4">
         {sidebarLinks.map((link, index) => (
           <li key={index}>

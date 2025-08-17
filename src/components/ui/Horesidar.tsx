@@ -23,11 +23,7 @@ export default function Horesidar() {
       <div className="relative overflow-hidden">
         <div className="flex transition-all duration-500">
           <div className="w-full">
-            <img
-              src={sidbasrs[currentIndex].src}
-              alt={sidbasrs[currentIndex].alt}
-              className="w-full h-100 object-contain"
-            />
+            <img src={sidbasrs[currentIndex].src} alt={sidbasrs[currentIndex].alt} className="w-full h-100 object-contain" />
           </div>
         </div>
 
@@ -36,11 +32,7 @@ export default function Horesidar() {
             <div
               key={index}
               onClick={() => pagantion(index)}
-              className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
-                currentIndex === index
-                  ? "bg-red-500 border border-white"
-                  : "bg-gray-400"
-              }`}
+              className={`w-3 h-3 rounded-full cursor-pointer transition-all  ${currentIndex === index ? "bg-red-500 border border-white" : "bg-gray-400"} translate-y-[-125px] sm:translate-y-0`}
             ></div>
           ))}
         </div>
