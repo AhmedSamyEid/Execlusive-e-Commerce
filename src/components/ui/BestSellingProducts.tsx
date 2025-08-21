@@ -121,9 +121,7 @@ export default function BestSellingProducts() {
   return (
     <div className="p-4 sm:p-8 mt-10">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
-        <h2 className="text-2xl sm:text-4xl text-center sm:text-left">
-          {t("Best Selling Products")}
-        </h2>
+        <h2 className="text-2xl sm:text-4xl text-center font-bold sm:text-left">{t("Best Selling Products")}</h2>
         <div className="space-x-2">
           <button onClick={prevSlide} className="p-2 border rounded-full">
             <FaArrowLeft />
@@ -136,21 +134,10 @@ export default function BestSellingProducts() {
 
       <div className="flex justify-center gap-4 flex-wrap overflow-hidden">
         {products.slice(startIndex, startIndex + visibleCount).map((item) => (
-          <div
-            key={item.id}
-            className="border bg-yellow-50 p-3 rounded-md w-full sm:w-[230px] group"
-          >
-            <img
-              src={item.src.trim()}
-              alt={item.alt}
-              className="w-full h-40 object-contain mb-3"
-            />
-            <h4 className="font-semibold text-sm sm:text-base">
-              {t(item.title)}
-            </h4>
-            <div className="text-xs text-gray-500 line-through">
-              {item.oldPrice}
-            </div>
+          <div key={item.id} className="border bg-yellow-50 p-3 rounded-md w-full sm:w-[230px] group">
+            <img src={item.src.trim()} alt={item.alt} className="w-full h-40 object-contain mb-3" />
+            <h4 className="font-semibold text-sm sm:text-base">{t(item.title)}</h4>
+            <div className="text-xs text-gray-500 line-through">{item.oldPrice}</div>
             <div className="text-base font-bold text-red-600">{item.price}</div>
             <div className="text-sm text-yellow-500">
               ⭐ {item.rating} ({item.reviews})
@@ -167,45 +154,31 @@ export default function BestSellingProducts() {
       </div>
 
       <div className="mt-6 text-center">
-        <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm sm:text-base">
-          {t("View All Products")}
-        </button>
+        <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm sm:text-base">{t("View All Products")}</button>
       </div>
 
       <section className="bg-gradient-to-r from-black to-gray-900 text-white mt-20 p-6 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-6">
         <div className="w-full lg:max-w-xl space-y-4 text-center lg:text-left">
-          <span className="text-2xl sm:text-3xl text-[#00ff66] uppercase tracking-widest">
-            {t("Categories")}
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-bold">
-            {t("Enhance Your Music Experience")}
-          </h2>
+          <span className="text-2xl sm:text-3xl text-[#00ff66] uppercase tracking-widest">{t("Categories")}</span>
+          <h2 className="text-2xl sm:text-4xl font-bold">{t("Enhance Your Music Experience")}</h2>
 
           <div className="flex justify-center lg:justify-start space-x-4 mt-4">
             {["Hours", "Days", "Minutes", "Seconds"].map((label, i) => {
               const value = [timeLeft.hours, timeLeft.days, timeLeft.minutes, timeLeft.seconds][i];
               return (
                 <div key={label} className="text-center">
-                  <div className="text-xl font-bold">
-                    {String(value).padStart(2, "0")}
-                  </div>
+                  <div className="text-xl font-bold">{String(value).padStart(2, "0")}</div>
                   <div className="text-xs uppercase">{t(label)}</div>
                 </div>
               );
             })}
           </div>
 
-          <button className="mt-4 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded text-sm sm:text-base">
-            {t("Buy Now!")}
-          </button>
+          <button className="mt-4 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded text-sm sm:text-base">{t("Buy Now!")}</button>
         </div>
 
         <div className="w-full lg:w-1/2">
-          <img
-            src="/images/earphone.png"
-            alt="speaker"
-            className="w-full max-h-[300px] object-contain mx-auto"
-          />
+          <img src="/images/earphone.png" alt="speaker" className="w-full max-h-[300px] object-contain mx-auto" />
         </div>
       </section>
     </div>

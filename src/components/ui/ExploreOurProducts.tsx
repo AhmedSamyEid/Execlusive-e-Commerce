@@ -156,7 +156,7 @@ export default function ExploreOurProducts() {
 
   return (
     <div className="p-8 mt-12">
-      <h2 className="mb-10 text-4xl font-bold text-center">
+      <h2 className="mb-10 text-2xl font-bold text-center md:text-4xl">
         {t("Explore Our Products")}
       </h2>
 
