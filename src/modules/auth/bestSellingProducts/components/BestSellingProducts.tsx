@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ProductTypes } from "../types/productsTypes";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-type Product = {
-  id: number;
-  src: string;
-  alt: string;
-  title: string;
-  price: string;
-  oldPrice: string;
-  rating: number;
-  reviews: number;
-};
-
+import { UseBestSellingPorducts } from "../hooks/useBestSellingPorducts";
 export default function BestSellingProducts() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const products: Product[] = [
+
+  const products: ProductTypes[] = [
     {
       id: 1,
       src: "/images/shirt.png",
       alt: "shirt",
       title: "The north coat",
-      price: "$260",
-      oldPrice: "$360",
+      price: 260,
+      oldPrice: 360,
       rating: 4.5,
       reviews: 88,
     },
@@ -33,8 +25,8 @@ export default function BestSellingProducts() {
       src: "/images/bag.png",
       alt: "bag",
       title: "Gucci duffle bag",
-      price: "$260",
-      oldPrice: "$360",
+      price: 260,
+      oldPrice: 360,
       rating: 4.5,
       reviews: 88,
     },
@@ -43,8 +35,8 @@ export default function BestSellingProducts() {
       src: "/images/graphics_card.png",
       alt: "graphics card",
       title: "RGB liquid CPU Cooler",
-      price: "$260",
-      oldPrice: "$360",
+      price: 260,
+      oldPrice: 360,
       rating: 4.5,
       reviews: 88,
     },
@@ -53,16 +45,14 @@ export default function BestSellingProducts() {
       src: "/images/small_bookself.png",
       alt: "bookshelf",
       title: "Small BookSelf",
-      price: "$260",
-      oldPrice: "$360",
+      price: 260,
+      oldPrice: 360,
       rating: 4.5,
       reviews: 88,
     },
   ];
-
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(4);
-
   useEffect(() => {
     const updateVisibleCount = () => {
       const width = window.innerWidth;
@@ -71,18 +61,19 @@ export default function BestSellingProducts() {
       else if (width < 1024) setVisibleCount(3);
       else setVisibleCount(4);
     };
-
     updateVisibleCount();
     window.addEventListener("resize", updateVisibleCount);
     return () => window.removeEventListener("resize", updateVisibleCount);
   }, []);
-
+  const handleAddToCart = (item: ProductTypes) => {
+    UseBestSellingPorducts(item);
+    navigate("/cart");
+  };
   const nextSlide = () => {
     if (startIndex + visibleCount < products.length) {
       setStartIndex(startIndex + 1);
     }
   };
-
   const prevSlide = () => {
     if (startIndex > 0) {
       setStartIndex(startIndex - 1);
@@ -92,7 +83,6 @@ export default function BestSellingProducts() {
   const targetDate = new Date();
   targetDate.setDate(targetDate.getDate() + 5);
   const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
-
   function getTimeRemaining() {
     const total = targetDate.getTime() - new Date().getTime();
     const seconds = Math.floor((total / 1000) % 60);
@@ -101,7 +91,6 @@ export default function BestSellingProducts() {
     const days = Math.floor(total / (1000 * 60 * 60 * 24));
     return { total, days, hours, minutes, seconds };
   }
-
   useEffect(() => {
     const interval = setInterval(() => {
       const updatedTime = getTimeRemaining();
@@ -109,14 +98,7 @@ export default function BestSellingProducts() {
       if (updatedTime.total <= 0) clearInterval(interval);
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
-
-  const handleAddToCart = (item: Product) => {
-    const stored: Product[] = JSON.parse(localStorage.getItem("cartItems") || "[]");
-    const updated = [...stored, item];
-    localStorage.setItem("cartItems", JSON.stringify(updated));
-    navigate("/cart");
-  };
+  });
 
   return (
     <div className="p-4 sm:p-8 mt-10">
@@ -131,7 +113,6 @@ export default function BestSellingProducts() {
           </button>
         </div>
       </div>
-
       <div className="flex justify-center gap-4 flex-wrap overflow-hidden">
         {products.slice(startIndex, startIndex + visibleCount).map((item) => (
           <div key={item.id} className="border bg-yellow-50 p-3 rounded-md w-full sm:w-[230px] group">
@@ -152,16 +133,13 @@ export default function BestSellingProducts() {
           </div>
         ))}
       </div>
-
       <div className="mt-6 text-center">
         <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm sm:text-base">{t("View All Products")}</button>
       </div>
-
       <section className="bg-gradient-to-r from-black to-gray-900 text-white mt-20 p-6 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-6">
         <div className="w-full lg:max-w-xl space-y-4 text-center lg:text-left">
           <span className="text-2xl sm:text-3xl text-[#00ff66] uppercase tracking-widest">{t("Categories")}</span>
           <h2 className="text-2xl sm:text-4xl font-bold">{t("Enhance Your Music Experience")}</h2>
-
           <div className="flex justify-center lg:justify-start space-x-4 mt-4">
             {["Hours", "Days", "Minutes", "Seconds"].map((label, i) => {
               const value = [timeLeft.hours, timeLeft.days, timeLeft.minutes, timeLeft.seconds][i];
@@ -173,10 +151,8 @@ export default function BestSellingProducts() {
               );
             })}
           </div>
-
           <button className="mt-4 bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded text-sm sm:text-base">{t("Buy Now!")}</button>
         </div>
-
         <div className="w-full lg:w-1/2">
           <img src="/images/earphone.png" alt="speaker" className="w-full max-h-[300px] object-contain mx-auto" />
         </div>

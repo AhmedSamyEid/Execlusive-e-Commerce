@@ -1,25 +1,14 @@
+import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { ProductTypes } from "../types/flashSales";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useNavigate } from "react-router";
-
-interface Product {
-  id: number;
-  src: string;
-  alt: string;
-  title: string;
-  price: number;
-  oldPrice: number;
-  discount: number;
-  rating: number;
-  reviews: number;
-}
 
 export default function FlashSales() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const Flash: Product[] = [
+  const Flash: ProductTypes[] = [
     {
       id: 1,
       src: "/images/PlayStation_arm.png",
@@ -111,7 +100,7 @@ export default function FlashSales() {
     }
   };
 
-  const handleAddToCart = (item: Product) => {
+  const handleAddToCart = (item: ProductTypes) => {
     const stored = JSON.parse(localStorage.getItem("cartItems") || "[]");
     const updated = [...stored, item];
     localStorage.setItem("cartItems", JSON.stringify(updated));
@@ -135,14 +124,14 @@ export default function FlashSales() {
       <div className="flex gap-4 overflow-hidden justify-center flex-wrap">
         {Flash.slice(startIndex, startIndex + visibleCount).map((item) => (
           <div key={item.id} className="border bg-yellow-50 p-4 rounded-md w-[230px] relative group">
-            <span className="absolute top-2 left-2 bg-red-500 text-white px-2 text-xs rounded">
-              -{item.discount}%
-            </span>
+            <span className="absolute top-2 left-2 bg-red-500 text-white px-2 text-xs rounded">-{item.discount}%</span>
             <img src={item.src} alt={item.alt} className="w-full h-40 object-contain mb-3" />
             <h4 className="font-semibold">{t(item.title)}</h4>
             <div className="text-sm text-gray-500 line-through">${item.oldPrice}</div>
             <div className="text-lg font-bold text-red-600">${item.price}</div>
-            <div className="text-sm text-yellow-500">⭐ {item.rating} ({item.reviews})</div>
+            <div className="text-sm text-yellow-500">
+              ⭐ {item.rating} ({item.reviews})
+            </div>
             <button
               onClick={() => handleAddToCart(item)}
               className="mt-3 w-full bg-black text-white py-1 rounded transition
@@ -155,9 +144,7 @@ export default function FlashSales() {
       </div>
 
       <div className="mt-6 text-center">
-        <button className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">
-          {t("View All Products")}
-        </button>
+        <button className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">{t("View All Products")}</button>
       </div>
     </div>
   );

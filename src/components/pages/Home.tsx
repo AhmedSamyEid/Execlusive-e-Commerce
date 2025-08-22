@@ -1,9 +1,9 @@
 import Sidbar from "../ui/Sidbar";
 import Horesider from "../ui/Horesidar";
-import Flashsales from "../ui/Flashsales"
+import Flashsales from "../../modules/auth/flashSales/components/Flashsales"
 import BrowseByCategory from "../ui/BrowseByCategory"
-import BestSellingProducts from "../ui/BestSellingProducts"
-import ExploreOurProducts from "../ui/ExploreOurProducts"
+import BestSellingProducts from "../../modules/auth/bestSellingProducts/components/BestSellingProducts"
+import ExploreOurProducts from "../../modules/auth/exploreOur/components/ExploreOurProducts"
 import NewArrival from "../ui/NewArrival"
 
 export default function Home() {
